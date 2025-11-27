@@ -330,3 +330,287 @@ Nairobi, Kenya
 <p align="center">
   <sub>© 2025 ONE-JAZ Foundation. All rights reserved.</sub>
 </p>
+
+
+
+# ONE-JAZAMITI: How to Run This Project
+
+## Project Overview
+
+ONE-JAZAMITI is a tree-planting tokenized dApp built on OneChain/Harmony ONE network. The project combines a React frontend with both Solidity and Rust smart contracts, featuring staking, NFTs, token management, and governance capabilities.
+
+## Project Structure
+
+```
+ONEJAZAMITI/
+├── contracts/
+│   ├── solidity/          # Solidity smart contracts
+│   │   ├── OJZToken.sol   # OJZ Token contract
+│   │   ├── Staking.sol    # Staking contract
+│   │   └── TreeRegistry.sol # Tree registry contract
+│   ├── staking/           # Rust staking contract
+│   ├── ojz_token/         # Rust token contract
+│   ├── nft/               # Rust NFT contract
+│   └── governance/        # Rust governance contract
+├── src/                   # React frontend source
+├── scripts/               # Deployment scripts
+│   └── deploy.js          # Smart contract deployment
+├── public/                # Public assets
+└── tests/                 # Test files
+```
+
+## Prerequisites
+
+Before running this project, ensure you have the following installed:
+
+### Required Software
+
+1. **Node.js** (v16 or higher)
+   - Download from: https://nodejs.org/
+   - Verify installation: `node --version`
+
+2. **npm** (comes with Node.js)
+   - Verify installation: `npm --version`
+
+3. **Rust & Cargo** (for Rust contracts)
+   - Install from: https://rustup.rs/
+   - Verify installation: `cargo --version`
+
+4. **Git**
+   - Download from: https://git-scm.com/
+   - Verify installation: `git --version`
+
+## Installation Steps
+
+### 1. Clone the Repository (if needed)
+
+```bash
+cd c:\Users\Austin NAMUYE\OneDrive\Desktop\ONEJAZAMITI
+```
+
+### 2. Install Node.js Dependencies
+
+```bash
+npm install
+```
+
+This will install all required packages including:
+- React and React Router
+- Harmony.js SDK
+- Polkadot API
+- Hardhat (for smart contract development)
+- Ethers.js
+- TailwindCSS
+- And many more dependencies
+
+### 3. Configure Environment Variables
+
+Create a `.env` file in the root directory by copying the example:
+
+```bash
+copy .env.example .env
+```
+
+Then edit the `.env` file and add your configuration:
+
+```env
+# OneChain Configuration
+REACT_APP_ONECHAIN_RPC_URL=wss://rpc.testnet.oonechain.com
+REACT_APP_ONECHAIN_HTTP_RPC_URL=https://rpc.testnet.oonechain.com
+REACT_APP_ONECHAIN_EXPLORER_URL=https://testnet.onechainscan.io
+REACT_APP_ONECHAIN_NETWORK_ID=onechain-testnet
+
+# Private Key for Contract Deployment (keep this secret!)
+PRIVATE_KEY=your_private_key_here
+
+# API Keys
+REACT_APP_API_KEY=your_api_key_here
+```
+
+> ⚠️ **WARNING**: Never commit your `.env` file to version control. It's already in `.gitignore`.
+
+## Running the Project
+
+### Frontend Development Server
+
+To run the React frontend in development mode:
+
+```bash
+npm start
+```
+
+This will:
+- Start the development server
+- Open your browser at `http://localhost:3000`
+- Enable hot-reloading (changes will appear automatically)
+
+### Build for Production
+
+To create an optimized production build:
+
+```bash
+npm run build
+```
+
+The production-ready files will be in the `build/` folder.
+
+### Run Tests
+
+To run the test suite:
+
+```bash
+npm test
+```
+
+## Smart Contract Development
+
+### Compile Solidity Contracts
+
+```bash
+npx hardhat compile
+```
+
+### Deploy Solidity Contracts
+
+To deploy contracts to Harmony testnet:
+
+```bash
+npx hardhat run scripts/deploy.js --network harmony_testnet
+```
+
+> **Note**: Make sure you have set your `PRIVATE_KEY` in the `.env` file and have testnet ONE tokens in your wallet.
+
+### Verify Wallet Balance
+
+Check your wallet balance:
+
+```bash
+node verify_balance.js
+```
+
+### Compile Rust Contracts
+
+Navigate to each Rust contract directory and compile:
+
+```bash
+# For staking contract
+cd contracts/staking
+cargo build --release
+
+# For OJZ token contract
+cd ../ojz_token
+cargo build --release
+
+# For NFT contract
+cd ../nft
+cargo build --release
+
+# For governance contract
+cd ../governance
+cargo build --release
+```
+
+## Network Configuration
+
+### Harmony Testnet
+
+- **RPC URL**: https://api.s0.b.hmny.io
+- **Chain ID**: 1666700000
+- **Explorer**: https://explorer.pops.one/
+- **Faucet**: Get testnet ONE tokens from the Harmony faucet
+
+### OneChain Testnet
+
+- **WebSocket RPC**: wss://rpc.testnet.oonechain.com
+- **HTTP RPC**: https://rpc.testnet.oonechain.com
+- **Explorer**: https://testnet.onechainscan.io
+
+## Common Issues & Troubleshooting
+
+### Issue: "Module not found" errors
+
+**Solution**: Delete `node_modules` and reinstall:
+
+```bash
+rmdir /s /q node_modules
+del package-lock.json
+npm install
+```
+
+### Issue: Port 3000 already in use
+
+**Solution**: Kill the process using port 3000 or use a different port:
+
+```bash
+# Use a different port
+set PORT=3001 && npm start
+```
+
+### Issue: Hardhat compilation fails
+
+**Solution**: Clear Hardhat cache and recompile:
+
+```bash
+npx hardhat clean
+npx hardhat compile
+```
+
+### Issue: Rust build fails
+
+**Solution**: Update Rust toolchain:
+
+```bash
+rustup update
+```
+
+## Project Scripts
+
+| Command | Description |
+|---------|-------------|
+| `npm start` | Starts development server |
+| `npm run build` | Creates production build |
+| `npm test` | Runs test suite |
+| `npm run eject` | Ejects from Create React App (irreversible) |
+
+## Browser Support
+
+### Production
+- \>0.2% market share
+- Not dead browsers
+- Not Opera Mini
+
+### Development
+- Latest Chrome
+- Latest Firefox
+- Latest Safari
+
+## Key Technologies
+
+- **Frontend**: React 18, TypeScript, TailwindCSS
+- **Blockchain**: Harmony.js, Polkadot API, Ethers.js
+- **Smart Contracts**: Solidity (v0.8.20), Rust
+- **Development Tools**: Hardhat, React Scripts
+- **Build Tools**: Webpack (via react-app-rewired)
+
+## Additional Resources
+
+- [Harmony Docs](https://docs.harmony.one/)
+- [React Documentation](https://react.dev/)
+- [Hardhat Documentation](https://hardhat.org/docs)
+- [Rust Documentation](https://doc.rust-lang.org/)
+
+## Support
+
+For issues or questions:
+1. Check the existing GitHub issues
+2. Review the documentation
+3. Contact the development team
+
+## License
+
+Please refer to the LICENSE file in the repository.
+
+---
+
+**Last Updated**: November 27, 2025
+**Version**: 0.1.0
